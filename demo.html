@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura AI - Customer Support Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.4);
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.95); }
+        }
+        .typing-dot {
+            animation: pulse-slow 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .glass-sidebar {
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+</head>
+<body class="h-full bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 text-slate-800 flex flex-col md:flex-row overflow-hidden font-sans">
+
+    <aside class="w-full md:w-80 glass-sidebar border-b md:border-b-0 md:border-r border-slate-200/80 flex flex-col justify-between p-6 z-10 shadow-sm">
+        <div>
+            <!-- Brand Header -->
+            <div class="flex items-center space-x-3 space-x-reverse md:space-x-reverse mb-8">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-indigo-500/30">
+                    ✨
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-slate-900 text-lg tracking-tight">Aura Support</h1>
+                    <p class="text-xs font-medium text-indigo-600/80">Intelligent AI Assistant</p>
+                </div>
+            </div>
+
+            <!-- Bot Status Indicator -->
+            <div class="bg-white/80 border border-slate-200/80 rounded-2xl p-4 mb-6 shadow-xs">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">System Status</span>
+                    <span class="flex items-center text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200/60 shadow-2xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1.5 animate-pulse"></span>
+                        Active
+                    </span>
+                </div>
+                <div class="space-y-1.5 pt-1 text-xs text-slate-600">
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">Model:</span>
+                        <span class="font-semibold text-slate-700">Gemma 3 (Local)</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">Environment:</span>
+                        <span class="font-semibold text-indigo-600">FastAPI & Ollama</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuration / Endpoint Settings -->
+            <div class="space-y-2 mb-6">
+                <label for="apiUrl" class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Backend API Endpoint</label>
+                <div class="relative">
+                    <input type="text" id="apiUrl" value="http://localhost:8000/chat" 
+                        class="w-full bg-white/90 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-mono text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-2xs">
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons & Footer -->
+        <div class="space-y-3 pt-4 border-t border-slate-200/60">
+            <button onclick="clearChat()" class="w-full bg-white hover:bg-slate-50 text-slate-700 font-semibold py-3 px-4 rounded-xl text-xs transition-all border border-slate-200/80 shadow-2xs flex items-center justify-center space-x-2 group">
+                <svg class="w-4 h-4 ml-2 text-slate-400 group-hover:text-indigo-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                Clear History
+            </button>
+            <div class="text-center">
+                <span class="text-[10px] text-slate-400 font-medium">Ready for Wednesday Live Demo</span>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative">
+        
+        <!-- Chat Header -->
+        <header class="glass-panel border-b border-slate-200/80 px-6 py-4 flex items-center justify-between z-10 shadow-xs">
+            <div class="flex items-center space-x-3.5">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-600 text-white flex items-center justify-center font-bold text-sm shadow-md shadow-indigo-500/20">
+                    🤖
+                </div>
+                <div>
+                    <h2 class="font-bold text-slate-900 text-sm tracking-tight">Live Customer Support Simulation</h2>
+                    <p class="text-xs text-slate-500">Instant AI responses powered by FastAPI webhook</p>
+                </div>
+            </div>
+            <div class="hidden sm:flex items-center space-x-2 text-xs font-medium text-indigo-700 bg-indigo-50/80 border border-indigo-100 px-3.5 py-1.5 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></span>
+                <span>Live Connection Ready</span>
+            </div>
+        </header>
+
+        <!-- Messages Container -->
+        <div id="chatContainer" class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
+            <!-- Welcome Message -->
+            <div class="flex items-start space-x-3.5">
+                <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center shrink-0 text-xs font-bold shadow-md shadow-indigo-500/20">
+                    AI
+                </div>
+                <div class="max-w-[85%] md:max-w-2xl bg-white border border-slate-200/80 rounded-2xl rounded-tl-sm px-5 py-4 shadow-sm text-sm text-slate-700 leading-relaxed">
+                    <p class="font-semibold text-slate-900 mb-1">Welcome to Aura AI Support Demo 👋</p>
+                    <p>I am your local AI assistant connected to Gemma 3 via FastAPI. Test any inquiries below or click one of the quick suggestions to start!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-6 py-2 flex items-center space-x-2 overflow-x-auto no-scrollbar">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider shrink-0 ml-1">Quick asks:</span>
+            <button onclick="sendPreset('یه جمله انگیزشی بگو')" class="text-xs bg-white hover:bg-indigo-50 hover:border-indigo-200 text-slate-600 font-medium px-3.5 py-1.5 rounded-full border border-slate-200 transition-all shrink-0 shadow-2xs">
+                یه جمله انگیزشی بگو
+            </button>
+            <button onclick="sendPreset('سلام! حالت چطوره؟ خودت رو کوتاه معرفی کن.')" class="text-xs bg-white hover:bg-indigo-50 hover:border-indigo-200 text-slate-600 font-medium px-3.5 py-1.5 rounded-full border border-slate-200 transition-all shrink-0 shadow-2xs">
+              سلام! حالت چطوره؟ خودت رو کوتاه معرفی کن.
+            </button>
+            <button onclick="sendPreset('پایتخت آرژانتین کجاست؟')" class="text-xs bg-white hover:bg-indigo-50 hover:border-indigo-200 text-slate-600 font-medium px-3.5 py-1.5 rounded-full border border-slate-200 transition-all shrink-0 shadow-2xs">
+               پایتخت آرژانتین کجاست؟
+            </button>
+        </div>
+
+        <div id="typingIndicator" class="hidden px-6 py-2">
+            <div class="flex items-start space-x-3.5">
+                <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center shrink-0 text-xs font-bold shadow-md shadow-indigo-500/20">
+                    AI
+                </div>
+                <div class="bg-white border border-slate-200/80 rounded-2xl rounded-tl-sm px-4 py-3.5 shadow-sm flex items-center space-x-1.5">
+                    <div class="w-2 h-2 rounded-full bg-indigo-500 typing-dot"></div>
+                    <div class="w-2 h-2 rounded-full bg-indigo-500 typing-dot"></div>
+                    <div class="w-2 h-2 rounded-full bg-indigo-500 typing-dot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel border-t border-slate-200/80 p-4 md:p-6">
+            <form id="chatForm" onsubmit="handleSendMessage(event)" class="flex items-center space-x-3">
+                <input type="text" id="userInput" placeholder="پیام خود را اینجا بنویسید..." autocomplete="off"
+                    class="flex-1 bg-white border border-slate-300/80 rounded-2xl px-5 py-3.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-inner">
+                <button type="submit" id="sendButton"
+                    class="bg-gradient-to-tr from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-semibold px-6 py-3.5 rounded-2xl text-sm transition-all shadow-md shadow-indigo-500/25 flex items-center justify-center shrink-0">
+                    <span>ارسال</span>
+                    <svg class="w-4 h-4 mr-2 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const chatContainer = document.getElementById('chatContainer');
+        const chatForm = document.getElementById('chatForm');
+        const userInput = document.getElementById('userInput');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const sendButton = document.getElementById('sendButton');
+
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function appendMessage(sender, text) {
+            const isUser = sender === 'user';
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex items-start space-x-3.5 ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`;
+
+            const avatarBg = isUser 
+                ? 'bg-slate-700 text-white' 
+                : 'bg-gradient-to-tr from-indigo-600 to-violet-500 text-white shadow-md shadow-indigo-500/20';
+            
+            const bubbleStyle = isUser 
+                ? 'bg-slate-900 text-white rounded-tr-sm shadow-md' 
+                : 'bg-white border border-slate-200/80 text-slate-800 rounded-tl-sm shadow-sm';
+
+            messageDiv.innerHTML = `
+                <div class="w-9 h-9 rounded-2xl ${avatarBg} flex items-center justify-center shrink-0 text-xs font-bold">
+                    ${isUser ? '👤' : 'AI'}
+                </div>
+                <div class="max-w-[85%] md:max-w-2xl ${bubbleStyle} rounded-2xl px-5 py-4 text-sm leading-relaxed whitespace-pre-wrap">
+                    ${escapeHTML(text)}
+                </div>
+            `;
+            
+            chatContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
+        function clearChat() {
+            chatContainer.innerHTML = `
+                <div class="flex items-start space-x-3.5">
+                    <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center shrink-0 text-xs font-bold shadow-md shadow-indigo-500/20">
+                        AI
+                    </div>
+                    <div class="max-w-[85%] md:max-w-2xl bg-white border border-slate-200/80 rounded-2xl rounded-tl-sm px-5 py-4 shadow-sm text-sm text-slate-700 leading-relaxed">
+                        تاریخچه گفتگو پاک شد. برای شروع تست‌های جدید آماده‌ایم!
+                    </div>
+                </div>
+            `;
+        }
+
+        function sendPreset(text) {
+            userInput.value = text;
+            chatForm.dispatchEvent(new Event('submit'));
+        }
+
+        async function handleSendMessage(e) {
+            e.preventDefault();
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            const apiUrl = document.getElementById('apiUrl').value.trim();
+
+            userInput.value = '';
+            appendMessage('user', text);
+
+            typingIndicator.classList.remove('hidden');
+            scrollToBottom();
+            sendButton.disabled = true;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: text })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const reply = data.reply || data.response || "پاسخی از سرور دریافت نشد.";
+                    typingIndicator.classList.add('hidden');
+                    appendMessage('ai', reply);
+                } else {
+                    typingIndicator.classList.add('hidden');
+                    appendMessage('ai', `⚠️ خطای سرور: کد وضعیت ${response.status}`);
+                }
+            } catch (error) {
+                typingIndicator.classList.add('hidden');
+                appendMessage('ai', `❌ خطای اتصال: ارتباط با سرور FastAPI در آدرس ${apiUrl} برقرار نشد.\nجزئیات: ${error.message}`);
+            } finally {
+                sendButton.disabled = false;
+                userInput.focus();
+            }
+        }
+    </script>
+</body>
+</html>

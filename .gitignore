@@ -1,0 +1,13 @@
+my-venv/
+venv/
+__pycache__/
+*.pyc
+
+.env
+server_logs.txt
+modelfile.txt
+streamlit.demo.py
+testmodel.py
+
+.DS_Store
+Thumbs.db

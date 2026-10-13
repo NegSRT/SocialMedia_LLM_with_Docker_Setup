@@ -1,0 +1,14 @@
+
+my-venv/
+venv/
+__pycache__/
+*.pyc
+
+.env
+.git/
+.gitignore
+
+modelfile.txt
+streamlit.demo.py
+testmode.py
+*.log
