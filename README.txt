@@ -2,12 +2,6 @@
 
 A lightweight, modular, and privacy-focused local AI chatbot backend built with **FastAPI** that integrates local Large Language Models (LLMs) via **Ollama** to simulate automated customer support for social media platforms (e.g., Instagram Direct Messages).
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-teal?style=flat-square&logo=fastapi)
-![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-orange?style=flat-square)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-Frontend-38B2AC?style=flat-square&logo=tailwind-css)
-
-
 🚀 Key Features
 
 * Asynchronous Backend Powered by FastAPI and `httpx` for fast, non-blocking asynchronous communication.
